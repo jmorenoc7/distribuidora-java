@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportePorDia" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b2310f9e-4fe1-4aa6-8a1a-e580b108ef5d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fecha" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\Proyectos\\Distribuidora Todos los Proyectos\\Distribuidora 07-01-19\\Distribuidora070119\\src\\reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="rutaImagen" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT pedidos.fecha, pedidos.idpedido, pedidos.codPedido FROM pedidos WHERE DATE(pedidos.fecha)=$P{fecha} AND pedidos.codPedido != '0000-000000' ORDER BY pedidos.idpedido DESC]]>
+	</queryString>
+	<field name="fecha" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idpedido" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codPedido" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<detail>
+		<band height="268" splitType="Stretch">
+			<subreport>
+				<reportElement x="-17" y="0" width="590" height="268" uuid="d154cb22-6231-4d4c-b4a0-259100fad8ef"/>
+				<subreportParameter name="idpedido">
+					<subreportParameterExpression><![CDATA[$F{idpedido}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="rutaImagen">
+					<subreportParameterExpression><![CDATA[$P{rutaImagen}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reportComprobante.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>
